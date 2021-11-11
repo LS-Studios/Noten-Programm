@@ -14,9 +14,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Test.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("AnmeldeScreen.fxml"));
         primaryStage.setTitle("Notenprogramm");
-        primaryStage.setScene(new Scene(root, 580, 350));
+        primaryStage.setScene(new Scene(root, 960, 540));
         primaryStage.show();
         primaryStage.setResizable(false);
     }
