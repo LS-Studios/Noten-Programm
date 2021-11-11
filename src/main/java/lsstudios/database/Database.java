@@ -63,7 +63,7 @@ public class Database {
     public static void CreateNoteTable() {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "CREATE TABLE Note(id INTEGER PRIMARY KEY AUTOINCREMENT, SchülerId INT, FachId INT, Note INT, NotenWert TEXT);";
+        String code = "CREATE TABLE Note(id INTEGER PRIMARY KEY AUTOINCREMENT, SchülerId INT, FachId INT, Note INT, NotenWert TEXT, Semester INT);";
 
         try {
             Statement stm = conn.createStatement();
@@ -116,10 +116,10 @@ public class Database {
         }
     }
 
-    public static void AddDataToNote(int benutzerId, int fachId, int note, String notenWert) {
+    public static void AddDataToNote(int benutzerId, int fachId, int note, String notenWert, int Semester) {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "INSERT INTO Note (BenutzerId, FachId, Note, NotenWert) VALUES (?, ?, ?, ?);";
+        String code = "INSERT INTO Note (BenutzerId, FachId, Note, NotenWert, Semester) VALUES (?, ?, ?, ?);";
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setInt(1, benutzerId);
