@@ -11,6 +11,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lsstudios.database.Database;
 
 import java.io.IOException;
 import java.net.URL;
@@ -198,20 +199,12 @@ public class NotenÜbersichtController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-    public void Test(){
-        System.out.println("Hello!");
-    }
 
     public void NoteHinzufügen() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXML-files/CreateFileScreen.fxml"));
-        Stage window = (Stage) pane.getScene().getWindow();
-
-        Scene newScene = new Scene(root);
-        newScene.setFill(Color.TRANSPARENT);
-        window.setScene(newScene);
+        Database.ChangeScreen("NoteHinzufügenScreen.fxml", pane);
     }
-    public void Abmelden(){
-
+    public void Abmelden() throws IOException {
+        Database.ChangeScreen("AnmeldeScreen.fxml", pane);
     }
     public void Hilfe(){
 

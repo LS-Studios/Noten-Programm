@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lsstudios.database.Database;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +19,7 @@ public class NotenHinzufügenController implements Initializable {
     @FXML
     private Button HinzufügenButton;
     @FXML
-    private ChoiceBox WahlChoiceBox;
+    private ChoiceBox FachCB;
     @FXML
     private RadioButton KleineNoteRadioButton;
     @FXML
@@ -30,17 +31,10 @@ public class NotenHinzufügenController implements Initializable {
     @FXML
     private Button ZurückButton;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        WelcomeText.setText("Welcome to JavaFX Application!");
-    }
-
-
-
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //TODO Angewählte Fächer hinzufügen
+        FachCB.getItems().addAll("Deutsch", "Mathe", "Englisch", "...");
     }
     //Die Methoden
 
@@ -64,10 +58,7 @@ public class NotenHinzufügenController implements Initializable {
     }
 
     public void Zurück(){
-        //Parent root = FXMLLoader.load(getClass().getClassLoader().resources("Notenübersicht.fxml"));
-        //Stage window = Stage //(Name eines Objektes von zum Fenster der begehrung)
 
-        //Window.setScene(new Scene(root, 960, 540))
     }
     public void Test(){
         System.out.println("Cock");

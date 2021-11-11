@@ -5,8 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
+import lsstudios.database.Database;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,23 +18,24 @@ import java.util.ResourceBundle;
 public class RegestrierenController implements Initializable {
 
 
-    //Variablen Textfields: Benutzername, Passwort, PasswortWiederholen, Choicefields: 1-6,0-15, Buttons: Anmelden, Registrieren
+    //Variablen
+    @FXML
+    private TextField VornameTF;
+    @FXML
+    private TextField NachnameTF;
+    @FXML
+    private TextField PasswortTF;
+    @FXML
+    private CheckBox NotensystemUnterstufe1CB;
+    @FXML
+    private CheckBox NotensystemOberstufe2CB;
+    @FXML
+    private Button AnmeldenBtn;
+    @FXML
+    private Button RegistrierenBtn;
 
-
     @FXML
-    private TextField Benutzername;
-    @FXML
-    private TextField Passwort;
-    @FXML
-    private TextField PasswortWiederholen;
-    @FXML
-    private ChoiceBox NotensystemUnterstufe;
-    @FXML
-    private ChoiceBox NotensystemOberstufe;
-    @FXML
-    private Button Anmelden;
-    @FXML
-    private Button Registrieren;
+    private Pane pane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -39,10 +43,28 @@ public class RegestrierenController implements Initializable {
     }
 
     public void Anmelden() throws IOException {
-        //Parent root = FXMLLoader.load(getClass().getClassLoader().resources("AnmeldenScreen.fxml"));
-        //Stage window = (Stage) name eines objektes vom zum button zugehörigen Fenster.getScene().getWindow();
-        // window.setScene(new Scene(root,960, 540));
+        Database.ChangeScreen("AnmeldeScreen.fxml", pane);
+    }
 
+    public void Regestrieren() throws IOException {
+        int notenSystem = 0;
+        if(NotensystemUnterstufe1CB.isSelected()) {
+            notenSystem = 0;
+        } else {
+            notenSystem = 1;
+        }
 
+        Database.AddDataToBenutzer(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText(), notenSystem);
+        Database.ChangeScreen("AnmeldeScreen.fxml", pane);
+    }
+
+    public void ChangeSelectUnterstuffe() {
+        NotensystemUnterstufe1CB.setSelected(true);
+        NotensystemOberstufe2CB.setSelected(false);
+    }
+
+    public void ChangeSelectOberstuffe() {
+        NotensystemUnterstufe1CB.setSelected(false);
+        NotensystemOberstufe2CB.setSelected(true);
     }
 }

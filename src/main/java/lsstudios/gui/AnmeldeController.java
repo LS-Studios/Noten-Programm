@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import lsstudios.database.Database;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,40 +21,38 @@ public class AnmeldeController implements Initializable {
 
     //Variablen
     @FXML
-    private TextField BenutzernameTF;
+    private TextField VornameTF;
+    @FXML
+    private TextField NachnameTF;
     @FXML
     private TextField PasswortTF;
     @FXML
     private Button RegistrierenBtn;
     @FXML
-    private Button AnmeldenBtn;
-    @FXML
-    private Label welcomeText;
+    private Button AnmeldeBtn;
     @FXML
     private Pane pane;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        Database.DBPath = "C:/Users/stubb/IdeaProjects/Notenprogramm/src/main/java/lsstudios/database/file/Notenprogramm.db";
+        Database.CreateBenutzerTable();
+        Database.CreateFachTable();
+        Database.CreateNoteTable();
+        Database.CreateFachBelegungTable();
     }
 
     public void Registrieren() throws IOException {
-        //Parent root = FXMLLoader.load(getClass().getClassLoader().resources("RegistrierenScreen.fxml"));
-        //Stage window = (Stage)[XXX] .getScene().getWindow();
-        // window.setScene(new Scene(root,960, 540));
-    }
-    public void Test(){
-        System.out.println("curaz");
+        Database.ChangeScreen("RegestrierenScreen.fxml", pane);
     }
     public void Anmelden() throws IOException {
-        //System.out.println("Hello");
-
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("NotenÜbersichtScreen.fxml"));
-        Stage window = (Stage) pane.getScene().getWindow();
-
-        Scene newScene = new Scene(root);
-        newScene.setFill(Color.TRANSPARENT);
-        window.setScene(newScene);
+        try {
+            Database.benutzerId = Database.GetBenutzerId(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText());
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "Benutzer nicht vorhanden", "Bitte gebe gültige Daten an!");
+        }
+        System.out.println(Database.benutzerId);
+        Database.ChangeScreen("NotenÜbersichtScreen.fxml", pane);
     }
 }

@@ -1,7 +1,14 @@
 package lsstudios.database;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import lsstudios.gui.PopUps;
 
+import java.io.IOException;
 import java.sql.*;
 
 public class Database {
@@ -35,6 +42,7 @@ public class Database {
 
     //SetUp Datatables
     public static void CreateBenutzerTable() {
+        System.out.println(DBPath);
         Connection conn = ConnectToDB(DBPath);
 
         String code = "CREATE TABLE Benutzer(id INTEGER PRIMARY KEY AUTOINCREMENT, Vorname TEXT, Nachname TEXT, Passwort TEXT, Notensysten INT);";
@@ -205,6 +213,29 @@ public class Database {
     }
 
     //Get Data Of Datatable
+    public static int GetBenutzerId(String Vorname, String Nachname, String Passwort) {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "SELECT id FROM Benutzer WHERE Vorname LIKE ? AND Nachname lIKE ? AND Passwort LIKE ?;";
+
+        try (PreparedStatement prst = conn.prepareStatement(code)) {
+            prst.setString(1, Vorname);
+            prst.setString(2, Nachname);
+            prst.setString(3, Passwort);
+
+            ResultSet rs = prst.executeQuery();
+
+            while (rs.next()) {
+                return rs.getInt("id");
+            }
+
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
+        }
+
+        return 0;
+    }
+
     public static Benutzer GetDataOfBenutzer() {
         Connection conn = ConnectToDB(DBPath);
 
@@ -289,5 +320,14 @@ public class Database {
         }
 
         return 0;
+    }
+
+    public static void ChangeScreen(String filepath, Pane pane) throws IOException {
+        Parent root = FXMLLoader.load(Database.class.getClassLoader().getResource(filepath));
+        Stage window = (Stage) pane.getScene().getWindow();
+
+        Scene newScene = new Scene(root);
+        newScene.setFill(Color.TRANSPARENT);
+        window.setScene(newScene);
     }
 }
