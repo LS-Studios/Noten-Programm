@@ -144,7 +144,7 @@ public class Database {
     public static void CreateFachInfosTable() {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "CREATE TABLE FachInfos(id INTEGER PRIMARY KEY AUTOINCREMENT, BenutzerId INT, FachId INT, Thema TEXT);";
+        String code = "CREATE TABLE FachInfos(BenutzerId INT, FachId INT, Thema TEXT);";
 
         try {
             Statement stm = conn.createStatement();
@@ -184,16 +184,17 @@ public class Database {
         }
     }
 
-    public static void AddDataToNote(int benutzerId, int fachId, int note, String notenWert, int Semester) {
+    public static void AddDataToNote(int benutzerId, int fachId, int note, String notenWert, int semester) {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "INSERT INTO Note (BenutzerId, FachId, Note, NotenWert, Semester) VALUES (?, ?, ?, ?);";
+        String code = "INSERT INTO Note (BenutzerId, FachId, Note, NotenWert, Semester) VALUES (?, ?, ?, ?, ?);";
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setInt(1, benutzerId);
             prst.setInt(2, fachId);
             prst.setInt(3, note);
             prst.setString(4, notenWert);
+            prst.setInt(5, semester);
             prst.executeUpdate();
         } catch (Exception e) {
             PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
@@ -235,8 +236,9 @@ public class Database {
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setInt(1, schülerId);
-            prst.setInt(1, fachId);
-            prst.setString(1, thema);
+            prst.setInt(2, fachId);
+            prst.setString(3, thema);
+            System.out.println(thema);
             prst.executeUpdate();
         } catch (Exception e) {
             PopUps.ErrorPopUp("Error", "An Error has happen!", "" + e);
@@ -441,14 +443,15 @@ public class Database {
         return null;
     }
 
-    public static ArrayList<Integer> GetKleineNoten(int benutzerId, int fachId) {
+    public static ArrayList<Integer> GetNoten(int benutzerId, int fachId, String notenWert) {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "SELECT Note FROM Note WHERE BenutzerId LIKE ? AND FachId LIKE ? AND NotenWert LIKE 'KleineNote';";
+        String code = "SELECT Note FROM Note WHERE BenutzerId LIKE ? AND FachId LIKE ? AND NotenWert LIKE ?;";
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setInt(1, benutzerId);
             prst.setInt(2, fachId);
+            prst.setString(3, notenWert);
 
             ResultSet rs = prst.executeQuery();
 
@@ -466,10 +469,10 @@ public class Database {
         return null;
     }
 
-    public static int GetKlausurNote(int benutzerId, int fachId) {
+    public static String GetThemaOfFach(int benutzerId, int fachId) {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "SELECT Note FROM Note WHERE FachId LIKE ? AND NotenWert LIKE 'KlausurNote';";
+        String code = "SELECT Thema FROM FachInfos WHERE BenutzerId LIKE ? AND FachId LIKE ?;";
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setInt(1, benutzerId);
@@ -477,13 +480,13 @@ public class Database {
 
             ResultSet rs = prst.executeQuery();
 
-            return rs.getInt("Note");
+            return rs.getString("Thema");
 
         } catch (Exception e) {
             //PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
         }
 
-        return -1;
+        return "Kein Thema";
     }
 
     public static int GetBenutzerLength() {

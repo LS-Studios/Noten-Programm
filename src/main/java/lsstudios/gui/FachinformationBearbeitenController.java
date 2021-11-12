@@ -23,13 +23,13 @@ public class FachinformationBearbeitenController implements Initializable {
     private Label KleineNotenText;
 
     @FXML
-    private Button NoteHinzufügen;
+    private Button NoteHinzufügenBtn;
 
     @FXML
     private Button BestätigenBtn;
 
     @FXML
-    private Button NoteLöschen;
+    private Button NoteLöschenBtn;
 
     @FXML
     private TextField ThemaTF;
@@ -44,13 +44,26 @@ public class FachinformationBearbeitenController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FachnameText.setText(Database.GetFachName(Database.fachIdToEdit));
+        ThemaTF.setText(Database.GetThemaOfFach(Database.benutzerId, Database.fachIdToEdit));
 
+        KlausurNotenText.setText(Database.GetNoten(Database.benutzerId, Database.fachIdToEdit, "KlausurNote").toString());
+        KleineNotenText.setText(Database.GetNoten(Database.benutzerId, Database.fachIdToEdit, "KleineNote").toString());
     }
 
     @FXML
     public void Bestätigen() throws IOException {
         Database.RemoveDataOfFachinfos(Database.benutzerId, Database.fachIdToEdit);
         Database.AddDataToFachInfos(Database.benutzerId, Database.fachIdToEdit, ThemaTF.getText());
+        Database.ChangeScreen("NotenÜbersichtScreen.fxml", pane);
+    }
+
+    @FXML
+    void NoteHinzufügen(ActionEvent event) throws IOException {
+        Database.ChangeScreen("NoteHinzufügenScreen.fxml", pane);
+    }
+
+    @FXML
+    void NoteLöschen(ActionEvent event) throws IOException {
         Database.ChangeScreen("NotenÜbersichtScreen.fxml", pane);
     }
 

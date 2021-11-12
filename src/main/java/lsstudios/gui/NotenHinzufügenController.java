@@ -3,10 +3,7 @@ package lsstudios.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import lsstudios.database.Database;
@@ -21,7 +18,7 @@ public class NotenHinzufügenController implements Initializable {
     private TextField AufgabeTF;
 
     @FXML
-    private ChoiceBox FachCB;
+    private Label FachnameText;
 
     @FXML
     private RadioButton KlausurNoteRB;
@@ -30,7 +27,7 @@ public class NotenHinzufügenController implements Initializable {
     private RadioButton KleineNoteRB;
 
     @FXML
-    private Button NoteHinzufügenButton;
+    private Button NoteHinzufügenBtn;
 
     @FXML
     private TextField NoteTF;
@@ -41,14 +38,11 @@ public class NotenHinzufügenController implements Initializable {
     @FXML
     private AnchorPane pane;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         KleineNoteRB.setSelected(true);
 
-        for (Integer i : Database.GetDataOfFachBelegung(Database.benutzerId)) {
-            FachCB.getItems().addAll(Database.GetFachName(i));
-        }
+        FachnameText.setText(Database.GetFachName(Database.fachIdToEdit));
     }
 
     @FXML
@@ -64,7 +58,7 @@ public class NotenHinzufügenController implements Initializable {
     }
 
     @FXML
-    void NoteHinzufügen(ActionEvent event) {
+    void NoteHinzufügen(ActionEvent event) throws IOException {
         String notenWert = "Oberstufe";
         if(KleineNoteRB.isSelected()) {
             notenWert = "KleineNote";
@@ -72,11 +66,13 @@ public class NotenHinzufügenController implements Initializable {
             notenWert = "KlausurNote";
         }
 
-        Database.AddDataToNote(Database.benutzerId, Database.GetFachId((String)FachCB.getValue()), Integer.parseInt(NoteTF.getText()), notenWert, 0);
+        Database.AddDataToNote(Database.benutzerId, Database.fachIdToEdit, Integer.parseInt(NoteTF.getText()), notenWert, 0);
+
+        Database.ChangeScreen("FachinformationenBearbeiten.fxml", pane);
     }
 
     @FXML
     void Zurück(ActionEvent event) throws IOException {
-        Database.ChangeScreen("NotenÜbersichtScreen.fxml", pane);
+        Database.ChangeScreen("FachinformationenBearbeiten.fxml", pane);
     }
 }

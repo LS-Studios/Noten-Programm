@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
@@ -46,17 +45,17 @@
                                 <Font size="30.0" />
                             </font>
                         </TextField>
-                        <RadioButton fx:id="KleineNoteRB" layoutX="196.0" layoutY="14.0" mnemonicParsing="false" onAction="#KleineNote" text="kleine Note">
+                        <RadioButton fx:id="KleineNoteRB" layoutX="196.0" layoutY="14.0" mnemonicParsing="false" onAction="#KleineNote" text="Kleine Note">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </RadioButton>
-                        <RadioButton fx:id="KlausurNoteRB" layoutX="196.0" layoutY="69.0" mnemonicParsing="false" onAction="#KlausurNote" text="Klausur">
+                        <RadioButton fx:id="KlausurNoteRB" layoutX="196.0" layoutY="69.0" mnemonicParsing="false" onAction="#KlausurNote" text="Klausur Note">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </RadioButton>
-                        <Button fx:id="NoteHinzufügenButton" layoutX="474.0" layoutY="83.0" mnemonicParsing="false" onAction="#NoteHinzufügen" prefHeight="73.0" prefWidth="158.0" text="Hinzufügen">
+                        <Button fx:id="NoteHinzufügenBtn" layoutX="474.0" layoutY="83.0" mnemonicParsing="false" onAction="#NoteHinzufügen" prefHeight="73.0" prefWidth="158.0" text="Hinzufügen">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -100,10 +99,13 @@
                     </children>
                 </Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-                    <children>
-                        <ChoiceBox fx:id="FachCB" layoutX="61.0" layoutY="38.0" prefHeight="35.0" prefWidth="283.0" />
-                    </children>
-                </Pane>
+               <children>
+                  <Label fx:id="FachnameText" layoutX="63.0" layoutY="29.0" prefHeight="55.0" prefWidth="511.0" text="Fachname">
+                     <font>
+                        <Font size="38.0" />
+                     </font>
+                  </Label>
+               </children></Pane>
             </children>
         </GridPane>
     </children>

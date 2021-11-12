@@ -6,10 +6,10 @@ public class FachWerte {
     public String fach;
     public String thema;
     public ArrayList<Integer> kleineNoten;
-    public int klausurNoten;
+    public ArrayList<Integer> klausurNoten;
     public int schnitt;
 
-    public FachWerte(String fach, String thema, ArrayList<Integer> kleineNoten, int klausurNoten, int schnitt) {
+    public FachWerte(String fach, String thema, ArrayList<Integer> kleineNoten, ArrayList<Integer> klausurNoten, int schnitt) {
         this.fach = fach;
         this.thema = thema;
         this.kleineNoten = kleineNoten;
@@ -41,11 +41,11 @@ public class FachWerte {
         this.kleineNoten = kleineNoten;
     }
 
-    public int getKlausurNoten() {
+    public ArrayList<Integer> getKlausurNoten() {
         return klausurNoten;
     }
 
-    public void setKlausurNoten(int klausurNoten) {
+    public void setKlausurNoten(ArrayList<Integer> klausurNoten) {
         this.klausurNoten = klausurNoten;
     }
 

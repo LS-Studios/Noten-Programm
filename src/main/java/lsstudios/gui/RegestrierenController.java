@@ -152,6 +152,8 @@ public class RegestrierenController implements Initializable {
     private ArrayList<CheckBox> fächerCB = new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        NotensystemOberstufe2CB.setSelected(true);
+
         fächerCB.add(DeutschCB);
         fächerCB.add(EnglischCB);
         fächerCB.add(LatainCB);
@@ -190,7 +192,7 @@ public class RegestrierenController implements Initializable {
             for (CheckBox cb : fächerCB) {
                 if (cb.isSelected()) {
                     Database.AddDataToFachBelegung(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()));
-                    Database.AddDataToFachInfos(Database.benutzerId, Database.GetFachId(cb.getText()), "");
+                    Database.AddDataToFachInfos(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()), "");
                 }
             }
         } else {
