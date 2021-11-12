@@ -190,6 +190,7 @@ public class RegestrierenController implements Initializable {
             for (CheckBox cb : fächerCB) {
                 if (cb.isSelected()) {
                     Database.AddDataToFachBelegung(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()));
+                    Database.AddDataToFachInfos(Database.benutzerId, Database.GetFachId(cb.getText()), "");
                 }
             }
         } else {

@@ -16,6 +16,7 @@ public class Database {
     //Static Variables
     public static String DBPath;
     public static int benutzerId;
+    public static int fachIdToEdit;
 
     //Connect Methods
     public static Connection ConnectToDB(String DBPath) {
@@ -63,6 +64,7 @@ public class Database {
         CreateFachTable();
         CreateNoteTable();
         CreateFachBelegungTable();
+        CreateFachInfosTable();
 
         //Add new Fächer to Fach
         Database.AddDataToFach("Deutsch");
@@ -116,7 +118,7 @@ public class Database {
     public static void CreateNoteTable() {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "CREATE TABLE Note(id INTEGER PRIMARY KEY AUTOINCREMENT, SchülerId INT, FachId INT, Note INT, NotenWert TEXT, Semester INT);";
+        String code = "CREATE TABLE Note(id INTEGER PRIMARY KEY AUTOINCREMENT, BenutzerId INT, FachId INT, Note INT, NotenWert TEXT, Semester INT);";
 
         try {
             Statement stm = conn.createStatement();
@@ -130,6 +132,19 @@ public class Database {
         Connection conn = ConnectToDB(DBPath);
 
         String code = "CREATE TABLE FachBelegung(BenutzerId INT, FachId INT);";
+
+        try {
+            Statement stm = conn.createStatement();
+            stm.execute(code);
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
+        }
+    }
+
+    public static void CreateFachInfosTable() {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "CREATE TABLE FachInfos(id INTEGER PRIMARY KEY AUTOINCREMENT, BenutzerId INT, FachId INT, Thema TEXT);";
 
         try {
             Statement stm = conn.createStatement();
@@ -213,6 +228,21 @@ public class Database {
         }
     }
 
+    public static void AddDataToFachInfos(int schülerId, int fachId, String thema) {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "INSERT INTO FachInfos (BenutzerId, FachId, Thema) VALUES (?, ?, ?);";
+
+        try (PreparedStatement prst = conn.prepareStatement(code)) {
+            prst.setInt(1, schülerId);
+            prst.setInt(1, fachId);
+            prst.setString(1, thema);
+            prst.executeUpdate();
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "An Error has happen!", "" + e);
+        }
+    }
+
     //Remove Data Of Datatables
     public static void RemoveDataOfBenutzer(int benutzerId) {
         Connection conn = ConnectToDB(DBPath);
@@ -261,6 +291,20 @@ public class Database {
         Connection conn = ConnectToDB(DBPath);
 
         String code = "DELETE FROM FachBelegung WHERE BenutzerId LIKE ? AND FachId LIKE ?;";
+
+        try (PreparedStatement prst = conn.prepareStatement(code)) {
+            prst.setInt(1, benutzerId);
+            prst.setInt(2, fachId);
+            prst.executeUpdate();
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
+        }
+    }
+
+    public static void RemoveDataOfFachinfos(int benutzerId, int fachId) {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "DELETE FROM FachInfos WHERE BenutzerId LIKE ? AND FachId LIKE ?;";
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setInt(1, benutzerId);
@@ -329,6 +373,7 @@ public class Database {
 
         return 0;
     }
+
     public static String GetFachName(int fachId) {
         Connection conn = ConnectToDB(DBPath);
 
@@ -394,6 +439,51 @@ public class Database {
         }
 
         return null;
+    }
+
+    public static ArrayList<Integer> GetKleineNoten(int benutzerId, int fachId) {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "SELECT Note FROM Note WHERE BenutzerId LIKE ? AND FachId LIKE ? AND NotenWert LIKE 'KleineNote';";
+
+        try (PreparedStatement prst = conn.prepareStatement(code)) {
+            prst.setInt(1, benutzerId);
+            prst.setInt(2, fachId);
+
+            ResultSet rs = prst.executeQuery();
+
+            ArrayList<Integer> noten = new ArrayList<>();
+            while (rs.next()) {
+                noten.add(rs.getInt("Note"));
+            }
+
+            return noten;
+
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
+        }
+
+        return null;
+    }
+
+    public static int GetKlausurNote(int benutzerId, int fachId) {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "SELECT Note FROM Note WHERE FachId LIKE ? AND NotenWert LIKE 'KlausurNote';";
+
+        try (PreparedStatement prst = conn.prepareStatement(code)) {
+            prst.setInt(1, benutzerId);
+            prst.setInt(2, fachId);
+
+            ResultSet rs = prst.executeQuery();
+
+            return rs.getInt("Note");
+
+        } catch (Exception e) {
+            //PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
+        }
+
+        return -1;
     }
 
     public static int GetBenutzerLength() {
