@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -30,57 +29,49 @@
                 <Font size="27.0" />
             </font>
         </Label>
-        <ScrollPane layoutX="604.0" layoutY="188.0" prefHeight="281.0" prefWidth="345.0">
-            <content>
-                <Pane prefHeight="399.0" prefWidth="329.0">
-                    <children>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="284.0" prefWidth="330.0">
-                            <children>
-                                <CheckBox layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="155.0" text="Deutsch" />
-                                <CheckBox layoutX="14.0" layoutY="31.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="153.0" text="Englisch" />
-                                <CheckBox layoutX="14.0" layoutY="48.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="166.0" text="Latein" />
-                                <CheckBox layoutX="14.0" layoutY="65.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="165.0" text="Schwedisch" />
-                                <CheckBox layoutX="14.0" layoutY="82.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="174.0" text="Spanisch" />
-                                <CheckBox layoutX="14.0" layoutY="99.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="172.0" text="Kunst" />
-                                <CheckBox layoutX="14.0" layoutY="116.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Musik" />
-                                <CheckBox layoutX="14.0" layoutY="134.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="169.0" text="Religion" />
-                                <CheckBox layoutX="14.0" layoutY="185.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Sozialkunde" />
-                                <CheckBox layoutX="14.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="164.0" text="Geschichte" />
-                                <CheckBox layoutX="14.0" layoutY="151.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="156.0" text="Geografie" />
-                                <CheckBox layoutX="14.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="125.0" text="Wirtschaft" />
-                                <CheckBox layoutX="14.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Biologie" />
-                                <CheckBox layoutX="14.0" layoutY="270.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Mathematik" />
-                                <CheckBox layoutX="14.0" layoutY="253.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="144.0" text="Informatik" />
-                                <CheckBox layoutX="14.0" layoutY="236.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="153.0" text="Chemie" />
-                                <CheckBox layoutX="178.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="31.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="270.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="253.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="236.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="185.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="151.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="116.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="99.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="82.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="65.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="48.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                                <CheckBox layoutX="178.0" layoutY="134.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                            </children>
-                        </AnchorPane>
-                        <CheckBox layoutX="14.0" layoutY="284.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="151.0" text="Physik">
-                            <padding>
-                                <Insets top="3.0" />
-                            </padding>
-                        </CheckBox>
-                        <CheckBox layoutX="14.0" layoutY="304.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="165.0" text="Sport" />
-                        <CheckBox layoutX="179.0" layoutY="286.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                        <CheckBox layoutX="179.0" layoutY="304.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                    </children>
-                </Pane>
-            </content>
+        <ScrollPane layoutX="604.0" layoutY="188.0" prefHeight="281.0" prefWidth="345.0" vvalue="1.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="330.0">
+               <children>
+                  <CheckBox fx:id="DeutschCB" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="155.0" text="Deutsch" />
+                  <CheckBox fx:id="DeutschLKCB" layoutX="178.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="EnglischCB" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="153.0" text="Englisch" />
+                  <CheckBox fx:id="EnglischLKCB" layoutX="178.0" layoutY="31.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="LatainCB" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="166.0" text="Latein" />
+                  <CheckBox fx:id="LatainLKCB" layoutX="178.0" layoutY="48.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="SchwedischCB" layoutX="14.0" layoutY="65.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="165.0" text="Schwedisch" />
+                  <CheckBox fx:id="SchwedischLKCB" layoutX="178.0" layoutY="65.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="SpanischCB" layoutX="14.0" layoutY="82.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="174.0" text="Spanisch" />
+                  <CheckBox fx:id="SpanischLKCB" layoutX="178.0" layoutY="82.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="KunstCB" layoutX="14.0" layoutY="99.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="172.0" text="Kunst" />
+                  <CheckBox fx:id="KunstLKCB" layoutX="178.0" layoutY="99.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="MusikCB" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Musik" />
+                  <CheckBox fx:id="MusikLKCB" layoutX="178.0" layoutY="116.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="ReligionCB" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="169.0" text="Religion" />
+                  <CheckBox fx:id="ReligionLKCB" layoutX="178.0" layoutY="134.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="SozialkundeCB" layoutX="14.0" layoutY="185.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Sozialkunde" />
+                  <CheckBox fx:id="SozialkundeLKCB" layoutX="178.0" layoutY="185.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="GeschichteCB" layoutX="14.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="164.0" text="Geschichte" />
+                  <CheckBox fx:id="GeschichteLKCB" layoutX="178.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="GeografieCB" layoutX="14.0" layoutY="151.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="156.0" text="Geografie" />
+                  <CheckBox fx:id="GeografieLKCB" layoutX="178.0" layoutY="151.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="WirtschaftCB" layoutX="14.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="125.0" text="Wirtschaft" />
+                  <CheckBox fx:id="WirtschaftLKCB" layoutX="178.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="BiologieCB" layoutX="14.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Biologie" />
+                  <CheckBox fx:id="BiologieLKCB" layoutX="178.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="MathematikCB" layoutX="14.0" layoutY="270.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Mathematik" />
+                  <CheckBox fx:id="MathematikLKCB" layoutX="178.0" layoutY="270.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="InformatikCB" layoutX="14.0" layoutY="253.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="144.0" text="Informatik" />
+                  <CheckBox fx:id="InformatikLKCB" layoutX="178.0" layoutY="253.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="ChemieCB" layoutX="14.0" layoutY="236.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="153.0" text="Chemie" />
+                  <CheckBox fx:id="ChemieLKCB" layoutX="178.0" layoutY="236.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="PhysikCB" layoutX="14.0" layoutY="287.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Physik" />
+                  <CheckBox fx:id="PhysikLKCB" layoutX="178.0" layoutY="287.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+                  <CheckBox fx:id="SportCB" layoutX="14.0" layoutY="304.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Sport" />
+                  <CheckBox fx:id="SportLKCB" layoutX="178.0" layoutY="304.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
+               </children>
+            </AnchorPane>
+         </content>
         </ScrollPane>
       <TextField fx:id="NachnameTF" layoutX="14.0" layoutY="258.0" prefHeight="25.0" prefWidth="570.0" promptText="Nachname" />
     </children>

@@ -37,22 +37,20 @@ public class AnmeldeController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Database.DBPath = "C:/Users/stubb/IdeaProjects/Notenprogramm/src/main/java/lsstudios/database/file/Notenprogramm.db";
-        Database.CreateBenutzerTable();
-        Database.CreateFachTable();
-        Database.CreateNoteTable();
-        Database.CreateFachBelegungTable();
+        Database.SetUp();
     }
 
     public void Registrieren() throws IOException {
         Database.ChangeScreen("RegestrierenScreen.fxml", pane);
     }
     public void Anmelden() throws IOException {
-        try {
-            Database.benutzerId = Database.GetBenutzerId(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText());
-        } catch (Exception e) {
+        Database.benutzerId = Database.GetBenutzerId(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText());
+
+        if (Database.benutzerId != -1) {
+            Database.ChangeScreen("NotenÜbersichtScreen.fxml", pane);
+            System.out.println(Database.benutzerId);
+        } else {
             PopUps.ErrorPopUp("Error", "Benutzer nicht vorhanden", "Bitte gebe gültige Daten an!");
         }
-        System.out.println(Database.benutzerId);
-        Database.ChangeScreen("NotenÜbersichtScreen.fxml", pane);
     }
 }

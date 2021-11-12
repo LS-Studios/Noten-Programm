@@ -1,12 +1,15 @@
 package lsstudios.gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -15,20 +18,11 @@ import lsstudios.database.Database;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class NotenÜbersichtController implements Initializable {
     //Variablen
-    @FXML
-    private Button NoteHinzufügenButton;
-    @FXML
-    private Button AbmeldenButton;
-    @FXML
-    private Button HilfeButton;
-    @FXML
-    private Button EinstellungenButton;
-
-    //BiologieGr ist Feld für große Note (Klausur) in Biologie, ...Klein ist das Feld für die kleine Note und ...Sch ist das Feld für den Schnitt
     @FXML
     private Label BiologieGr;
 
@@ -37,6 +31,9 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label BiologieSch;
+
+    @FXML
+    private TextField BiologieThemaTF;
 
     @FXML
     private Label ChemieGr;
@@ -48,6 +45,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label ChemieSch;
 
     @FXML
+    private TextField ChemieThemaTF;
+
+    @FXML
     private Label DeutschGr;
 
     @FXML
@@ -55,6 +55,9 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label DeutschSch;
+
+    @FXML
+    private TextField DeutschThemaTF;
 
     @FXML
     private Label EnglischGr;
@@ -66,6 +69,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label EnglischSch;
 
     @FXML
+    private TextField EnglischThemaTF;
+
+    @FXML
     private Label GeografieGr;
 
     @FXML
@@ -73,6 +79,9 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label GeografieSch;
+
+    @FXML
+    private TextField GeografieThemaTF;
 
     @FXML
     private Label GeschichteGr;
@@ -84,6 +93,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label GeschichteSch;
 
     @FXML
+    private TextField GeschichteThemaTF;
+
+    @FXML
     private Label InformatikGr;
 
     @FXML
@@ -93,6 +105,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label InformatikSch;
 
     @FXML
+    private TextField InformatikThemaTF;
+
+    @FXML
     private Label KunstGr;
 
     @FXML
@@ -100,6 +115,12 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label KunstSch;
+
+    @FXML
+    private TextField KunstThemaTF;
+
+    @FXML
+    private TextField LatainThemaTF;
 
     @FXML
     private Label LateinGr;
@@ -120,6 +141,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label MathematikSch;
 
     @FXML
+    private TextField MathematikThemaTF;
+
+    @FXML
     private Label MusikGr;
 
     @FXML
@@ -127,6 +151,9 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label MusikSch;
+
+    @FXML
+    private TextField MusikThemaTF;
 
     @FXML
     private Label PhysikGr;
@@ -138,6 +165,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label PhysikSch;
 
     @FXML
+    private TextField PhysikThemaTF;
+
+    @FXML
     private Label ReligionGr;
 
     @FXML
@@ -145,6 +175,9 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label ReligionSch;
+
+    @FXML
+    private TextField ReligionThemaTF;
 
     @FXML
     private Label SchwedischGr;
@@ -156,6 +189,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label SchwedischSch;
 
     @FXML
+    private TextField SchwedischThemaTF;
+
+    @FXML
     private Label SozialkundeGr;
 
     @FXML
@@ -163,6 +199,9 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label SozialkundeSch;
+
+    @FXML
+    private TextField SozialkundeThemaTF;
 
     @FXML
     private Label SpanischGr;
@@ -174,6 +213,9 @@ public class NotenÜbersichtController implements Initializable {
     private Label SpanischSch;
 
     @FXML
+    private TextField SpanischThemaTF;
+
+    @FXML
     private Label SportGr;
 
     @FXML
@@ -181,6 +223,9 @@ public class NotenÜbersichtController implements Initializable {
 
     @FXML
     private Label SportSch;
+
+    @FXML
+    private TextField SportThemaTF;
 
     @FXML
     private Label WirtschaftGr;
@@ -192,12 +237,59 @@ public class NotenÜbersichtController implements Initializable {
     private Label WirtschaftSch;
 
     @FXML
+    private TextField WirtschaftThemaTF;
+
+    @FXML
+    private Label HalloText;
+
+    //region Buttons
+
+    @FXML
+    private Button NotenHinzufügenButton;
+    @FXML
+    private Button HilfeButton;
+    @FXML
+    private Button EinstellungenButton;
+    @FXML
+    private Button AbmeldenButton;
+    //endregion
+
+    @FXML
+    private TableView<FachWerte> table;
+    @FXML
+    private TableColumn<FachWerte, String> fachColumn;
+    @FXML
+    private TableColumn<FachWerte, String> themaColumn;
+    @FXML
+    private TableColumn<FachWerte, ArrayList<Integer>> kleineNoteColumn;
+    @FXML
+    private TableColumn<FachWerte, Integer> klausurNoteColumn;
+    @FXML
+    private TableColumn<FachWerte, Integer> schnittNoteColumn;
+
+    @FXML
     private Pane pane;
 
     //Methoden
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        fachColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, String>("fach"));
+        themaColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, String>("thema"));
+        kleineNoteColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, ArrayList<Integer>>("kleineNoten"));
+        klausurNoteColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, Integer>("klausurNoten"));
+        schnittNoteColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, Integer>("schnitt"));
 
+        HalloText.setText(Database.GetDataOfBenutzer().vorname);
+
+        table.setItems(GetFachWerte());
+    }
+
+    public ObservableList<FachWerte> GetFachWerte() {
+        ObservableList<FachWerte> fachWerte = FXCollections.observableArrayList();
+        for (Integer i : Database.GetDataOfFachBelegung(Database.benutzerId)) {
+            fachWerte.add(new FachWerte(Database.GetFachName(i), "", null, 0, 0));
+        }
+        return fachWerte;
     }
 
     public void NoteHinzufügen() throws IOException {

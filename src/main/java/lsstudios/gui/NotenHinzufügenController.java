@@ -1,66 +1,82 @@
 package lsstudios.gui;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.stage.Window;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import lsstudios.database.Database;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.spi.ResourceBundleControlProvider;
 
 public class NotenHinzufügenController implements Initializable {
-    @FXML //Die Variablen
-    private Label WelcomeText;
+
     @FXML
-    private Button HinzufügenButton;
+    private TextField AufgabeTF;
+
     @FXML
     private ChoiceBox FachCB;
+
     @FXML
-    private RadioButton KleineNoteRadioButton;
+    private RadioButton KlausurNoteRB;
+
     @FXML
-    private TextField AufgabeTextField;
+    private RadioButton KleineNoteRB;
+
     @FXML
-    private TextField NoteTextField;
+    private Button NoteHinzufügenButton;
+
     @FXML
-    private RadioButton KlausurRadioButton;
+    private TextField NoteTF;
+
     @FXML
-    private Button ZurückButton;
+    private Button ZurückBtn;
+
+    @FXML
+    private AnchorPane pane;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO Angewählte Fächer hinzufügen
-        FachCB.getItems().addAll("Deutsch", "Mathe", "Englisch", "...");
-    }
-    //Die Methoden
+        KleineNoteRB.setSelected(true);
 
-    public void Klausur(){
-
+        for (Integer i : Database.GetDataOfFachBelegung(Database.benutzerId)) {
+            FachCB.getItems().addAll(Database.GetFachName(i));
+        }
     }
 
-    public void KleineNote(){
-
+    @FXML
+    void KlausurNote(ActionEvent event) {
+        KlausurNoteRB.setSelected(true);
+        KleineNoteRB.setSelected(false);
     }
 
-    public void Hinzufügen(){
-        //Parent root = FXMLLoader.load(getClass().getClassLoader().resources("Notenübersicht.fxml"));
-        //Stage window = Stage //(Name eines Objektes von zum Fenster der begehrung)
-
-        //Window.setScene(new Scene(root, 960, 540))
+    @FXML
+    void KleineNote(ActionEvent event) {
+        KlausurNoteRB.setSelected(false);
+        KleineNoteRB.setSelected(true);
     }
 
-    public void Wahl(){
+    @FXML
+    void NoteHinzufügen(ActionEvent event) {
+        String notenWert = "Oberstufe";
+        if(KleineNoteRB.isSelected()) {
+            notenWert = "KleineNote";
+        } else {
+            notenWert = "KlausurNote";
+        }
 
+        Database.AddDataToNote(Database.benutzerId, Database.GetFachId((String)FachCB.getValue()), Integer.parseInt(NoteTF.getText()), notenWert, 0);
     }
 
-    public void Zurück(){
-
-    }
-    public void Test(){
-        System.out.println("Cock");
+    @FXML
+    void Zurück(ActionEvent event) throws IOException {
+        Database.ChangeScreen("NotenÜbersichtScreen.fxml", pane);
     }
 }

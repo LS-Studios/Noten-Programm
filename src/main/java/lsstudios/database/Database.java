@@ -10,6 +10,7 @@ import lsstudios.gui.PopUps;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Database {
     //Static Variables
@@ -41,11 +42,55 @@ public class Database {
     }
 
     //SetUp Datatables
+    public static void SetUp() {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "CREATE TABLE SetUP(g text);";
+
+        try {
+            Statement stm = conn.createStatement();
+            stm.execute(code);
+
+            System.out.println("SetedDatabaseUp");
+        } catch (Exception e) {
+            System.out.println("AlreadySetedUp");
+
+            return;
+        }
+
+        //Create Tables
+        CreateBenutzerTable();
+        CreateFachTable();
+        CreateNoteTable();
+        CreateFachBelegungTable();
+
+        //Add new Fächer to Fach
+        Database.AddDataToFach("Deutsch");
+        Database.AddDataToFach("Englisch");
+        Database.AddDataToFach("Latein");
+        Database.AddDataToFach("Schwedisch");
+        Database.AddDataToFach("Spanisch");
+        Database.AddDataToFach("Kunst");
+        Database.AddDataToFach("Musik");
+        Database.AddDataToFach("Religion");
+        Database.AddDataToFach("Geografie");
+        Database.AddDataToFach("Geschichte");
+        Database.AddDataToFach("Sozialkunde");
+        Database.AddDataToFach("Wirtschaft");
+        Database.AddDataToFach("Biologie");
+        Database.AddDataToFach("Chemie");
+        Database.AddDataToFach("Informatik");
+        Database.AddDataToFach("Mathematik");
+        Database.AddDataToFach("Physik");
+        Database.AddDataToFach("Sport");
+
+    }
+
     public static void CreateBenutzerTable() {
         System.out.println(DBPath);
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "CREATE TABLE Benutzer(id INTEGER PRIMARY KEY AUTOINCREMENT, Vorname TEXT, Nachname TEXT, Passwort TEXT, Notensysten INT);";
+        String code = "CREATE TABLE Benutzer(id INTEGER PRIMARY KEY AUTOINCREMENT, Vorname TEXT, Nachname TEXT, Passwort TEXT, NotenSystem TEXT);";
 
         try {
             Statement stm = conn.createStatement();
@@ -58,7 +103,7 @@ public class Database {
     public static void CreateFachTable() {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "CREATE TABLE Schüler(id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT);";
+        String code = "CREATE TABLE Fach(id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT);";
 
         try {
             Statement stm = conn.createStatement();
@@ -84,7 +129,7 @@ public class Database {
     public static void CreateFachBelegungTable() {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "CREATE TABLE FachBelegung(id INTEGER PRIMARY KEY AUTOINCREMENT, BenutzerId INT, FachId INT);";
+        String code = "CREATE TABLE FachBelegung(BenutzerId INT, FachId INT);";
 
         try {
             Statement stm = conn.createStatement();
@@ -95,16 +140,16 @@ public class Database {
     }
 
     //Add Data To Datatables
-    public static void AddDataToBenutzer(String Vorname, String Nachname, String Passwort, int Notensystem) {
+    public static void AddDataToBenutzer(String Vorname, String Nachname, String Passwort, String Notensystem) {
         Connection conn = ConnectToDB(DBPath);
 
-        String code = "INSERT INTO Benutzer (Vorname, Nachname, Passwort, Notensystem) VALUES (?, ?, ?, ?);";
+        String code = "INSERT INTO Benutzer (Vorname, Nachname, Passwort, NotenSystem) VALUES (?, ?, ?, ?);";
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setString(1, Vorname);
             prst.setString(2, Nachname);
             prst.setString(3, Passwort);
-            prst.setInt(4, Notensystem);
+            prst.setString(4, Notensystem);
             prst.executeUpdate();
         } catch (Exception e) {
             PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
@@ -141,6 +186,20 @@ public class Database {
     }
 
     public static void AddDataToFachBelegung(int benutzerId, int fachId) {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "INSERT INTO FachBelegung (BenutzerId, FachId) VALUES (?, ?);";
+
+        try (PreparedStatement prst = conn.prepareStatement(code)) {
+            prst.setInt(1, benutzerId);
+            prst.setInt(2, fachId);
+            prst.executeUpdate();
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
+        }
+    }
+
+    public static void AddDataOfNewBenutzerToFachBelegung(int newBenutzerId, int fachId) {
         Connection conn = ConnectToDB(DBPath);
 
         String code = "INSERT INTO FachBelegung (BenutzerId, FachId) VALUES (?, ?);";
@@ -225,15 +284,14 @@ public class Database {
 
             ResultSet rs = prst.executeQuery();
 
-            while (rs.next()) {
-                return rs.getInt("id");
-            }
+            return rs.getInt("id");
+
 
         } catch (Exception e) {
-            PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
-        }
+            System.out.println(e);
 
-        return 0;
+            return -1;
+        }
     }
 
     public static Benutzer GetDataOfBenutzer() {
@@ -245,9 +303,7 @@ public class Database {
             prst.setInt(1, benutzerId);
             ResultSet rs = prst.executeQuery();
 
-            while (rs.next()) {
-                return new Benutzer(rs.getString("Vorname"), rs.getString("Nachname"), rs.getString("Passwort"), rs.getInt("Notensystem"));
-            }
+            return new Benutzer(rs.getString("Vorname"), rs.getString("Nachname"), rs.getString("Passwort"), rs.getString("NotenSystem"));
         } catch (Exception e) {
             PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
         }
@@ -255,7 +311,7 @@ public class Database {
         return null;
     }
 
-    public static int GetDataOfFach(String name) {
+    public static int GetFachId(String name) {
         Connection conn = ConnectToDB(DBPath);
 
         String code = "SELECT id FROM Fach WHERE Name LIKE ?;";
@@ -265,15 +321,31 @@ public class Database {
 
             ResultSet rs = prst.executeQuery();
 
-            while (rs.next()) {
-                return rs.getInt("id");
-            }
+            return rs.getInt("id");
 
         } catch (Exception e) {
             PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
         }
 
         return 0;
+    }
+    public static String GetFachName(int fachId) {
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "SELECT Name FROM Fach WHERE id LIKE ?;";
+
+        try (PreparedStatement prst = conn.prepareStatement(code)) {
+            prst.setInt(1, fachId);
+
+            ResultSet rs = prst.executeQuery();
+
+            return rs.getString("Name");
+
+        } catch (Exception e) {
+            PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
+        }
+
+        return null;
     }
 
     public static int GetDataOfNote(int benutzerId, int fachId, int note, String notenWert) {
@@ -300,26 +372,51 @@ public class Database {
         return 0;
     }
 
-    public static int GetDataOfFachBelegung(int benutzerId, int fachId) {
+    public static ArrayList<Integer> GetDataOfFachBelegung(int benutzerId) {
         Connection conn = ConnectToDB(DBPath);
-
-        String code = "SELECT id FROM FachBelegung WHERE BenutzerId LIKE ? AND FachId LIKE ?;";
+        String code = "SELECT FachId FROM FachBelegung WHERE BenutzerId LIKE ?;";
 
         try (PreparedStatement prst = conn.prepareStatement(code)) {
             prst.setInt(1, benutzerId);
-            prst.setInt(2, fachId);
 
             ResultSet rs = prst.executeQuery();
 
+            ArrayList<Integer> fächer = new ArrayList<>();
             while (rs.next()) {
-                return rs.getInt("id");
+                fächer.add(rs.getInt("FachId"));
+
             }
+
+            return fächer;
 
         } catch (Exception e) {
             PopUps.ErrorPopUp("Error", "An Error has happen!", ""+ e);
         }
 
-        return 0;
+        return null;
+    }
+
+    public static int GetBenutzerLength() {
+        int length = 0;
+
+        Connection conn = ConnectToDB(DBPath);
+
+        String code = "SELECT * FROM Benutzer;";
+
+        try (Statement st = conn.createStatement()) {
+
+            ResultSet rs = st.executeQuery(code);
+
+            while (rs.next()) {
+                length++;
+            }
+
+            return length;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return length;
     }
 
     public static void ChangeScreen(String filepath, Pane pane) throws IOException {

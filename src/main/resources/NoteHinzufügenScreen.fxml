@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lsstudios.gui.NotenHinzufügenController">
+<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lsstudios.gui.NotenHinzufügenController">
     <children>
         <Pane prefHeight="100.0" prefWidth="960.0">
             <children>
@@ -21,7 +21,7 @@
                         <Font size="45.0" />
                     </font>
                 </Label>
-                <Button fx:id="ZurückButton" layoutX="820.0" layoutY="23.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="104.0" text="Zurück">
+                <Button fx:id="ZurückBtn" layoutX="820.0" layoutY="23.0" mnemonicParsing="false" onAction="#Zurück" prefHeight="55.0" prefWidth="104.0" text="Zurück">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -41,22 +41,22 @@
             <children>
                 <Pane prefHeight="79.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <children>
-                        <TextField layoutX="61.0" layoutY="23.0" prefHeight="73.0" prefWidth="77.0">
+                        <TextField fx:id="NoteTF" layoutX="61.0" layoutY="23.0" prefHeight="73.0" prefWidth="77.0">
                             <font>
                                 <Font size="30.0" />
                             </font>
                         </TextField>
-                        <RadioButton fx:id="KleineNoteRadioButton" layoutX="196.0" layoutY="14.0" mnemonicParsing="false" text="kleine Note">
+                        <RadioButton fx:id="KleineNoteRB" layoutX="196.0" layoutY="14.0" mnemonicParsing="false" onAction="#KleineNote" text="kleine Note">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </RadioButton>
-                        <RadioButton fx:id="KlausurRadioButton" layoutX="196.0" layoutY="69.0" mnemonicParsing="false" text="Klausur">
+                        <RadioButton fx:id="KlausurNoteRB" layoutX="196.0" layoutY="69.0" mnemonicParsing="false" onAction="#KlausurNote" text="Klausur">
                             <font>
                                 <Font size="25.0" />
                             </font>
                         </RadioButton>
-                        <Button fx:id="HinzufügenButton" layoutX="474.0" layoutY="83.0" mnemonicParsing="false" onAction="#Test" prefHeight="73.0" prefWidth="158.0" text="Hinzufügen">
+                        <Button fx:id="NoteHinzufügenButton" layoutX="474.0" layoutY="83.0" mnemonicParsing="false" onAction="#NoteHinzufügen" prefHeight="73.0" prefWidth="158.0" text="Hinzufügen">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -65,7 +65,7 @@
                 </Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <children>
-                        <TextField layoutX="61.0" layoutY="37.0" prefHeight="35.0" prefWidth="243.0">
+                        <TextField fx:id="AufgabeTF" layoutX="61.0" layoutY="37.0" prefHeight="35.0" prefWidth="243.0">
                             <font>
                                 <Font size="20.0" />
                             </font>
@@ -101,7 +101,7 @@
                 </Pane>
                 <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                     <children>
-                        <ChoiceBox fx:id="WahlChoiceBox" layoutX="61.0" layoutY="38.0" prefHeight="35.0" prefWidth="283.0" />
+                        <ChoiceBox fx:id="FachCB" layoutX="61.0" layoutY="38.0" prefHeight="35.0" prefWidth="283.0" />
                     </children>
                 </Pane>
             </children>
