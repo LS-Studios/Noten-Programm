@@ -1,10 +1,10 @@
 package lsstudios.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import lsstudios.database.Database;
 
@@ -12,9 +12,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-public class RegestrierenController implements Initializable {
+public class HilfeScreenController implements Initializable {
 
 
     //Variablen
@@ -33,178 +32,124 @@ public class RegestrierenController implements Initializable {
     @FXML
     private Button RegistrierenBtn;
 
-    //region Fächerwahl
+    //<editor-fold desc="Fächer CheckBoxes">
     @FXML
     private CheckBox BiologieCB;
 
     @FXML
-    private RadioButton BiologieGKCB;
-
-    @FXML
-    private RadioButton BiologieLKCB;
+    private CheckBox BiologieLKCB;
 
     @FXML
     private CheckBox ChemieCB;
 
     @FXML
-    private RadioButton ChemieGKCB;
-
-    @FXML
-    private RadioButton ChemieLKCB;
+    private CheckBox ChemieLKCB;
 
     @FXML
     private CheckBox DeutschCB;
 
     @FXML
-    private RadioButton DeutschGKCB;
-
-    @FXML
-    private RadioButton DeutschLKCB;
+    private CheckBox DeutschLKCB;
 
     @FXML
     private CheckBox EnglischCB;
 
     @FXML
-    private RadioButton EnglischGKCB;
-
-    @FXML
-    private RadioButton EnglischLKCB;
+    private CheckBox EnglischLKCB;
 
     @FXML
     private CheckBox GeografieCB;
 
     @FXML
-    private RadioButton GeografieGKCB;
-
-    @FXML
-    private RadioButton GeografieLKCB;
+    private CheckBox GeografieLKCB;
 
     @FXML
     private CheckBox GeschichteCB;
 
     @FXML
-    private RadioButton GeschichteGKCB;
-
-    @FXML
-    private RadioButton GeschichteLKCB;
+    private CheckBox GeschichteLKCB;
 
     @FXML
     private CheckBox InformatikCB;
 
     @FXML
-    private RadioButton InformatikGKCB;
-
-    @FXML
-    private RadioButton InformatikLKCB;
+    private CheckBox InformatikLKCB;
 
     @FXML
     private CheckBox KunstCB;
 
     @FXML
-    private RadioButton KunstGKCB;
-
-    @FXML
-    private RadioButton KunstLKCB;
+    private CheckBox KunstLKCB;
 
     @FXML
     private CheckBox LatainCB;
 
     @FXML
-    private RadioButton LatainGKCB;
-
-    @FXML
-    private RadioButton LatainLKCB;
+    private CheckBox LatainLKCB;
 
     @FXML
     private CheckBox MathematikCB;
 
     @FXML
-    private RadioButton MathematikGKCB;
-
-    @FXML
-    private RadioButton MathematikLKCB;
+    private CheckBox MathematikLKCB;
 
     @FXML
     private CheckBox MusikCB;
 
     @FXML
-    private RadioButton MusikGKCB;
-
-    @FXML
-    private RadioButton MusikLKCB;
+    private CheckBox MusikLKCB;
 
     @FXML
     private CheckBox PhysikCB;
 
     @FXML
-    private RadioButton PhysikGKCB;
-
-    @FXML
-    private RadioButton PhysikLKCB;
+    private CheckBox PhysikLKCB;
 
     @FXML
     private CheckBox ReligionCB;
 
     @FXML
-    private RadioButton ReligionGKCB;
-
-    @FXML
-    private RadioButton ReligionLKCB;
+    private CheckBox ReligionLKCB;
 
     @FXML
     private CheckBox SchwedischCB;
 
     @FXML
-    private RadioButton SchwedischGKCB;
-
-    @FXML
-    private RadioButton SchwedischLKCB;
+    private CheckBox SchwedischLKCB;
 
     @FXML
     private CheckBox SozialkundeCB;
 
     @FXML
-    private RadioButton SozialkundeGKCB;
-
-    @FXML
-    private RadioButton SozialkundeLKCB;
+    private CheckBox SozialkundeLKCB;
 
     @FXML
     private CheckBox SpanischCB;
 
     @FXML
-    private RadioButton SpanischGKCB;
-
-    @FXML
-    private RadioButton SpanischLKCB;
+    private CheckBox SpanischLKCB;
 
     @FXML
     private CheckBox SportCB;
 
     @FXML
-    private RadioButton SportGKCB;
-
-    @FXML
-    private RadioButton SportLKCB;
+    private CheckBox SportLKCB;
 
     @FXML
     private CheckBox WirtschaftCB;
 
     @FXML
-    private RadioButton WirtschaftGKCB;
-
-    @FXML
-    private RadioButton WirtschaftLKCB;
-    //endregion
+    private CheckBox WirtschaftLKCB;
+    //</editor-fold>
 
     @FXML
     private Pane pane;
 
     private ArrayList<CheckBox> fächerCB = new ArrayList<>();
-    private ArrayList<CheckBox> fächerNotenWertCB = new ArrayList<>();
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        NotensystemOberstufe2CB.setSelected(true);
+
         fächerCB.add(DeutschCB);
         fächerCB.add(EnglischCB);
         fächerCB.add(LatainCB);
@@ -239,13 +184,13 @@ public class RegestrierenController implements Initializable {
             }
 
             Database.AddDataToBenutzer(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText(), notenSystem);
+            Database.ChangeScreen("AnmeldeScreen.fxml", pane);
             for (CheckBox cb : fächerCB) {
                 if (cb.isSelected()) {
                     Database.AddDataToFachBelegung(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()));
                     Database.AddDataToFachInfos(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()), "");
                 }
             }
-            Database.ChangeScreen("AnmeldeScreen.fxml", pane);
         } else {
             PopUps.ErrorPopUp("Fehler", "Die Eingegebenden Daten sind bereits vergeben!", "Wähle Sie andere Daten oder melden Sie an.");
         }

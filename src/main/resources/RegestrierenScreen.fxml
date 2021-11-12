@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lsstudios.gui.RegestrierenController">
+<AnchorPane fx:id="pane" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lsstudios.gui.RegestrierenController">
     <children>
         <Label layoutX="14.0" layoutY="14.0" prefHeight="125.0" prefWidth="570.0" text="Registrieren">
             <font>
@@ -17,60 +28,181 @@
         <Button fx:id="AnmeldenBtn" layoutX="604.0" layoutY="501.0" mnemonicParsing="false" onAction="#Anmelden" prefHeight="25.0" prefWidth="345.0" text="Anmelden" />
         <Label layoutX="604.0" layoutY="484.0" prefHeight="17.0" prefWidth="345.0" text="Schon ein Konto? Zum Anmelden Hier entlang." textFill="#005cff" />
         <CheckBox fx:id="NotensystemUnterstufe1CB" layoutX="14.0" layoutY="384.0" mnemonicParsing="false" onAction="#ChangeSelectUnterstuffe" prefHeight="17.0" prefWidth="570.0" text="1-6" />
-        <CheckBox fx:id="NotensystemOberstufe2CB" layoutX="14.0" layoutY="409.0" mnemonicParsing="false" onAction="#ChangeSelectOberstuffe" prefHeight="17.0" prefWidth="570.0" text="0-15" />
+        <CheckBox fx:id="NotensystemOberstufe2CB" layoutX="14.0" layoutY="409.0" mnemonicParsing="false" onAction="#ChangeSelectOberstuffe" prefHeight="17.0" prefWidth="570.0" selected="true" text="0-15" />
         <Label layoutX="14.0" layoutY="348.0" prefHeight="33.0" prefWidth="570.0" text="Bitte wähle unbedingt Dein Notensystem aus!" textFill="RED" />
         <Label layoutX="14.0" layoutY="168.0" prefHeight="33.0" prefWidth="570.0" text="Persönliche Daten">
             <font>
                 <Font size="27.0" />
             </font>
         </Label>
-        <Label layoutX="604.0" layoutY="149.0" prefHeight="17.0" prefWidth="318.0" text="Fächeranwahl:">
+        <Label layoutX="618.0" layoutY="165.0" prefHeight="17.0" prefWidth="318.0" text="Fächeranwahl:">
             <font>
                 <Font size="27.0" />
             </font>
         </Label>
-        <ScrollPane layoutX="604.0" layoutY="188.0" prefHeight="281.0" prefWidth="345.0" vvalue="1.0">
+        <ScrollPane layoutX="618.0" layoutY="204.0" prefHeight="268.0" prefWidth="307.0">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="335.0" prefWidth="330.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="610.0" prefWidth="294.0">
                <children>
-                  <CheckBox fx:id="DeutschCB" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="155.0" text="Deutsch" />
-                  <CheckBox fx:id="DeutschLKCB" layoutX="178.0" layoutY="14.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="EnglischCB" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="153.0" text="Englisch" />
-                  <CheckBox fx:id="EnglischLKCB" layoutX="178.0" layoutY="31.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="LatainCB" layoutX="14.0" layoutY="48.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="166.0" text="Latein" />
-                  <CheckBox fx:id="LatainLKCB" layoutX="178.0" layoutY="48.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="SchwedischCB" layoutX="14.0" layoutY="65.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="165.0" text="Schwedisch" />
-                  <CheckBox fx:id="SchwedischLKCB" layoutX="178.0" layoutY="65.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="SpanischCB" layoutX="14.0" layoutY="82.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="174.0" text="Spanisch" />
-                  <CheckBox fx:id="SpanischLKCB" layoutX="178.0" layoutY="82.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="KunstCB" layoutX="14.0" layoutY="99.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="172.0" text="Kunst" />
-                  <CheckBox fx:id="KunstLKCB" layoutX="178.0" layoutY="99.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="MusikCB" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Musik" />
-                  <CheckBox fx:id="MusikLKCB" layoutX="178.0" layoutY="116.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="ReligionCB" layoutX="14.0" layoutY="134.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="169.0" text="Religion" />
-                  <CheckBox fx:id="ReligionLKCB" layoutX="178.0" layoutY="134.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="SozialkundeCB" layoutX="14.0" layoutY="185.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Sozialkunde" />
-                  <CheckBox fx:id="SozialkundeLKCB" layoutX="178.0" layoutY="185.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="GeschichteCB" layoutX="14.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="164.0" text="Geschichte" />
-                  <CheckBox fx:id="GeschichteLKCB" layoutX="178.0" layoutY="168.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="GeografieCB" layoutX="14.0" layoutY="151.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="156.0" text="Geografie" />
-                  <CheckBox fx:id="GeografieLKCB" layoutX="178.0" layoutY="151.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="WirtschaftCB" layoutX="14.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="125.0" text="Wirtschaft" />
-                  <CheckBox fx:id="WirtschaftLKCB" layoutX="178.0" layoutY="202.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="BiologieCB" layoutX="14.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="154.0" text="Biologie" />
-                  <CheckBox fx:id="BiologieLKCB" layoutX="178.0" layoutY="219.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="MathematikCB" layoutX="14.0" layoutY="270.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Mathematik" />
-                  <CheckBox fx:id="MathematikLKCB" layoutX="178.0" layoutY="270.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="InformatikCB" layoutX="14.0" layoutY="253.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="144.0" text="Informatik" />
-                  <CheckBox fx:id="InformatikLKCB" layoutX="178.0" layoutY="253.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="ChemieCB" layoutX="14.0" layoutY="236.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="153.0" text="Chemie" />
-                  <CheckBox fx:id="ChemieLKCB" layoutX="178.0" layoutY="236.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="PhysikCB" layoutX="14.0" layoutY="287.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Physik" />
-                  <CheckBox fx:id="PhysikLKCB" layoutX="178.0" layoutY="287.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-                  <CheckBox fx:id="SportCB" layoutX="14.0" layoutY="304.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="140.0" text="Sport" />
-                  <CheckBox fx:id="SportLKCB" layoutX="178.0" layoutY="304.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="46.0" text="LK" />
-               </children>
-            </AnchorPane>
+                  <GridPane gridLinesVisible="true" prefHeight="609.0" prefWidth="291.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="123.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.0" minWidth="10.0" prefWidth="90.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="79.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                        <RowConstraints vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <CheckBox fx:id="DeutschCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Deutsch" translateX="10.0" />
+                        <CheckBox fx:id="EnglischCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Englisch" translateX="10.0" GridPane.rowIndex="1" />
+                        <CheckBox fx:id="MathematikCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Mathematik" translateX="10.0" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="LatainCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Latein" translateX="10.0" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="SchwedischCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Schwedisch" translateX="10.0" GridPane.rowIndex="4" />
+                        <CheckBox fx:id="SpanischCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Spanisch" translateX="10.0" GridPane.rowIndex="5" />
+                        <CheckBox fx:id="SozialkundeCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Sozialkunde" translateX="10.0" GridPane.rowIndex="6" />
+                        <CheckBox fx:id="ReligionCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Religion" translateX="10.0" GridPane.rowIndex="7" />
+                        <CheckBox fx:id="GeschichteCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Geschichte" translateX="10.0" GridPane.rowIndex="8" />
+                        <CheckBox fx:id="MusikCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Musik" translateX="10.0" GridPane.rowIndex="9" />
+                        <CheckBox fx:id="KunstCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Kunst" translateX="10.0" GridPane.rowIndex="10" />
+                        <CheckBox fx:id="ChemieCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Chemie" translateX="10.0" GridPane.rowIndex="11" />
+                        <CheckBox fx:id="InformatikCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Informatik" translateX="10.0" GridPane.rowIndex="12" />
+                        <CheckBox fx:id="PhysikCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Physik" translateX="10.0" GridPane.rowIndex="13" />
+                        <CheckBox fx:id="GeografieCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Geografie" translateX="10.0" GridPane.rowIndex="14" />
+                        <CheckBox fx:id="WirtschaftCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Wirtschaft" translateX="10.0" GridPane.rowIndex="15" />
+                        <CheckBox fx:id="SportCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Sport" translateX="10.0" GridPane.rowIndex="16" />
+                        <CheckBox fx:id="BiologieCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="93.0" scaleX="1.2" scaleY="1.2" text="Biologie" translateX="10.0" GridPane.rowIndex="17" />
+                        <RadioButton fx:id="DeutschGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="DeutschBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="EnglischGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="EnglischBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="MathematikGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="MathematikBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="LatainGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="LatainBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="SchwedischGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="SchwedischBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="SpanischGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="SpanischBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="SozialkundeGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="SozialkundeBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="ReligionGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="ReligionBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="GeschichteGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GeschichteBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="MusikGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="MusikBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="KunstGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="KunstBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="ChemieGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="ChemieBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="InformatikGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="InformatikBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="PhysikGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="PhysikBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="GeografieGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="14">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="GeografieBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="WirtschaftGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="15">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="WirtschaftBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="SportGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="SportBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="BiologieGKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="72.0" scaleX="1.2" scaleY="1.2" selected="true" text="GK" translateX="-10.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="BiologieBG" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="EnglischLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$EnglischBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <RadioButton fx:id="DeutschLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$DeutschBG" translateX="-22.0" GridPane.columnIndex="2" />
+                        <RadioButton fx:id="MathematikLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$MathematikBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <RadioButton fx:id="LatainLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$LatainBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <RadioButton fx:id="SpanischLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$SpanischBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <RadioButton fx:id="SozialkundeLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$SozialkundeBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <RadioButton fx:id="ReligionLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$ReligionBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                        <RadioButton fx:id="GeschichteLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$GeschichteBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <RadioButton fx:id="MusikLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$MusikBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                        <RadioButton fx:id="KunstLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$KunstBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                        <RadioButton fx:id="ChemieLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$ChemieBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <RadioButton fx:id="InformatikLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$InformatikBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                        <RadioButton fx:id="PhysikLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$PhysikBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                        <RadioButton fx:id="GeografieLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$GeografieBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="14" />
+                        <RadioButton fx:id="WirtschaftLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$WirtschaftBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="15" />
+                        <RadioButton fx:id="SportLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$SportBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="16" />
+                        <RadioButton fx:id="BiologieLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="76.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$BiologieBG" translateX="-22.0" GridPane.columnIndex="2" GridPane.rowIndex="17" />
+                        <RadioButton fx:id="SchwedischLKCB" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="17.0" prefWidth="56.0" scaleX="1.2" scaleY="1.2" text="LK" toggleGroup="$SchwedischBG" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </GridPane>
+               </children></AnchorPane>
          </content>
         </ScrollPane>
       <TextField fx:id="NachnameTF" layoutX="14.0" layoutY="258.0" prefHeight="25.0" prefWidth="570.0" promptText="Nachname" />
