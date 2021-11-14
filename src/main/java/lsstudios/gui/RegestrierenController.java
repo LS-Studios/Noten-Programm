@@ -1,18 +1,17 @@
 package lsstudios.gui;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import lsstudios.database.Database;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RegestrierenController implements Initializable {
 
@@ -28,6 +27,12 @@ public class RegestrierenController implements Initializable {
     private CheckBox NotensystemUnterstufe1CB;
     @FXML
     private CheckBox NotensystemOberstufe2CB;
+
+    @FXML
+    private RadioButton ColorThemeDunkelRB;
+    @FXML
+    private RadioButton ColorThemeHellRB;
+
     @FXML
     private Button AnmeldenBtn;
     @FXML
@@ -198,35 +203,21 @@ public class RegestrierenController implements Initializable {
     //endregion
 
     @FXML
-    private Pane pane;
+    private GridPane grid;
 
-    private ArrayList<CheckBox> fächerCB = new ArrayList<>();
-    private ArrayList<CheckBox> fächerNotenWertCB = new ArrayList<>();
+    @FXML
+    private ScrollPane scrol;
+
+    @FXML
+    private Pane pane;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        fächerCB.add(DeutschCB);
-        fächerCB.add(EnglischCB);
-        fächerCB.add(LatainCB);
-        fächerCB.add(SchwedischCB);
-        fächerCB.add(SpanischCB);
-        fächerCB.add(KunstCB);
-        fächerCB.add(MusikCB);
-        fächerCB.add(ReligionCB);
-        fächerCB.add(GeografieCB);
-        fächerCB.add(GeschichteCB);
-        fächerCB.add(SozialkundeCB);
-        fächerCB.add(WirtschaftCB);
-        fächerCB.add(BiologieCB);
-        fächerCB.add(ChemieCB);
-        fächerCB.add(InformatikCB);
-        fächerCB.add(MathematikCB);
-        fächerCB.add(PhysikCB);
-        fächerCB.add(SportCB);
+
     }
 
     public void Anmelden() throws IOException {
-        Database.ChangeScreen("AnmeldeScreen.fxml", pane);
+        Database.ChangeScreen(".Screens/AnmeldeScreen.fxml", pane);
     }
 
     public void Regestrieren() throws IOException {
@@ -234,21 +225,65 @@ public class RegestrierenController implements Initializable {
             String notenSystem = "Oberstufe";
             if (NotensystemUnterstufe1CB.isSelected()) {
                 notenSystem = "Unterstufe";
-            } else {
+            }
+            else {
                 notenSystem = "Oberstufe";
             }
 
-            Database.AddDataToBenutzer(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText(), notenSystem);
-            for (CheckBox cb : fächerCB) {
-                if (cb.isSelected()) {
-                    Database.AddDataToFachBelegung(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()));
-                    Database.AddDataToFachInfos(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()), "");
+            if (ColorThemeHellRB.isSelected())
+                Database.AddDataToBenutzer(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText(), notenSystem, "Hell");
+            else if (ColorThemeDunkelRB.isSelected())
+                Database.AddDataToBenutzer(VornameTF.getText(), NachnameTF.getText(), PasswortTF.getText(), notenSystem, "Dunkel");
+
+
+            for (Node node : grid.getChildren()) {
+                if (node instanceof CheckBox) {
+                    CheckBox cb = (CheckBox) node;
+                    if(cb.isSelected()) {
+
+                        if (!Database.GetDataOfFachBelegung(Database.benutzerId).contains(Database.GetFachId(cb.getText()))) {
+                            Database.AddDataToFachBelegung(Database.benutzerId, Database.GetFachId(cb.getText()), "GK");
+                            if(Database.GetThemaOfFach(Database.benutzerId, Database.GetFachId(cb.getText())) != null) {
+                                Database.AddDataToFachInfos(Database.GetBenutzerLength(), Database.GetFachId(cb.getText()), "");
+                            }
+                        }
+                    } else if (!cb.isSelected()) {
+                        Database.RemoveDataOfFachBelegung(Database.benutzerId, Database.GetFachId(cb.getText()));
+                    }
+                } else if (node instanceof RadioButton) {
+                    RadioButton rb = (RadioButton) node;
+                    if (rb.isSelected()) {
+                        String fach = "";
+
+                        if (rb.getId().contains("GK")) {
+                            fach = rb.getId().replace("GK", "");
+
+                            Database.ChangeKursartOfFach(Database.benutzerId, Database.GetFachId(fach), "GK");
+                        } else if (rb.getId().contains("LK")) {
+                            fach = rb.getId().replace("LK", "");
+
+                            Database.ChangeKursartOfFach(Database.benutzerId, Database.GetFachId(fach), "LK");
+                        }
+                    }
                 }
             }
-            Database.ChangeScreen("AnmeldeScreen.fxml", pane);
+
+            Database.benutzerId = Database.GetBenutzerLength();
+
+            Database.ChangeScreen(".Screens/AnmeldeScreen.fxml", pane);
         } else {
             PopUps.ErrorPopUp("Fehler", "Die Eingegebenden Daten sind bereits vergeben!", "Wähle Sie andere Daten oder melden Sie an.");
         }
+    }
+
+    @FXML
+    void ChangeColorThemeHell() {
+        Database.ChangeColorTheme("Hell", pane);
+    }
+
+    @FXML
+    void ChangeColorThemeDunkel() {
+        Database.ChangeColorTheme("Dunkel", pane);
     }
 
     public void ChangeSelectUnterstuffe() {

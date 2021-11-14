@@ -1,0 +1,158 @@
+.DunkelBG {
+    -fx-background-color: #353b48;
+}
+/*
+CheckBox
+*/
+.check-box {
+    -fx-text-fill: #f2f2f2;
+}
+
+.check-box .box {
+    -fx-background-color: #65718b;
+    -fx-border-color: #494f5a;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #ffffff;
+}
+
+.check-box:hover .box {
+    -fx-background-color: #95a4c6;
+}
+
+/*
+Label
+*/
+.label {
+    -fx-text-fill: #f2f2f2;
+}
+
+/*
+Root
+*/
+.root {
+    -fx-background-color: #353b48;
+}
+
+/*
+RadioButton
+*/
+.radio-button {
+    -fx-text-fill: #f2f2f2;
+}
+
+.radio-button .radio {
+    -fx-background-color: #65718b;
+    -fx-border-color: Transparent;
+}
+
+.radio-button:selected .dot {
+    -fx-background-color: #ffffff;
+    -fx-border-color: Transparent;
+}
+
+.radio-button:hover .dot {
+    -fx-background-color: #95a4c6;
+}
+
+/*
+GridPane
+*/
+#grid-pane {
+     -fx-background-color: #353b48;
+}
+
+/*
+ScrolPane
+*/
+.scroll-pane {
+    -fx-background-color: #353b48;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color: #65718b;
+}
+
+.scroll-pane > .corner {
+      -fx-background-color: #65718b;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #353b48;
+}
+/*
+Button
+*/
+.button {
+    -fx-background-color: #65718b;
+    -fx-text-fill: #f2f2f2;
+}
+
+.button:hover {
+    -fx-background-color: #95a4c6;
+    -fx-background-radius: 6;
+}
+
+/*
+TextField
+*/
+.text-field {
+    -fx-background-color: #65718b;
+    -fx-text-fill: #f2f2f2;
+}
+
+.text-field:hover {
+    -fx-background-color: #95a4c6;
+}
+
+/*
+    TableView
+*/
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-view:focused{
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: #65718b;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-text-fill: white;
+}
+
+.table-row-cell{
+    -fx-background-color: -fx-table-cell-border-color, #525a6b;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:odd{
+    -fx-background-color: -fx-table-cell-border-color, #5c6475;;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 0.0em; /* 0 */
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #005797;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
+}
+
+.table-view .filler{
+    -fx-background-color: transparent;
+}

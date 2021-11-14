@@ -3,9 +3,12 @@ package lsstudios.gui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import lsstudios.database.Database;
 
 import java.io.IOException;
@@ -16,9 +19,6 @@ public class NotenHinzufügenController implements Initializable {
 
     @FXML
     private TextField AufgabeTF;
-
-    @FXML
-    private Label FachnameText;
 
     @FXML
     private RadioButton KlausurNoteRB;
@@ -38,23 +38,15 @@ public class NotenHinzufügenController implements Initializable {
     @FXML
     private AnchorPane pane;
 
+    public static Pane globalPane;
+
+    //Variables
+    private double x,y;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        KleineNoteRB.setSelected(true);
-
-        FachnameText.setText(Database.GetFachName(Database.fachIdToEdit));
-    }
-
-    @FXML
-    void KlausurNote(ActionEvent event) {
-        KlausurNoteRB.setSelected(true);
-        KleineNoteRB.setSelected(false);
-    }
-
-    @FXML
-    void KleineNote(ActionEvent event) {
-        KlausurNoteRB.setSelected(false);
-        KleineNoteRB.setSelected(true);
+        //Set ColorTheme
+        Database.ChangeColorTheme(Database.GetDataOfBenutzer().colorTheme, pane);
     }
 
     @FXML
@@ -66,13 +58,45 @@ public class NotenHinzufügenController implements Initializable {
             notenWert = "KlausurNote";
         }
 
-        Database.AddDataToNote(Database.benutzerId, Database.fachIdToEdit, Integer.parseInt(NoteTF.getText()), notenWert, 0);
+        switch (Database.GetDataOfBenutzer().notensystem) {
+            case "Oberstufe":
+                if (Integer.parseInt(NoteTF.getText()) > 15 || Integer.parseInt(NoteTF.getText()) < 1) {
+                    PopUps.ErrorPopUp("Fehler", "Falsche Note eingegeben", "Bitte Wähle eine Note zwischen 1(Schlecht) und 15(Gut) aus!");
+                    return;
+                }
+                break;
+            case "Unterstufe":
+                if (Integer.parseInt(NoteTF.getText()) > 6 || Integer.parseInt(NoteTF.getText()) < 1) {
+                    PopUps.ErrorPopUp("Fehler", "Falsche Note eingegeben", "Bitte Wähle eine Note zwischen 1(Gut) und 6(Schlecht) aus!");
+                    return;
+                }
+                break;
+        }
 
-        Database.ChangeScreen("FachinformationenBearbeiten.fxml", pane);
+        Database.AddDataToNote(Database.benutzerId, Database.fachIdToEdit, Integer.parseInt(NoteTF.getText()), AufgabeTF.getText(), notenWert, 0);
+
+        Database.ChangeScreen(".Screens/NotenÜbersichtScreen.fxml", NotenÜbersichtController.globalPane);
+        Database.ChangeScreen(".Screens/FachinformationenBearbeiten.fxml", FachinformationBearbeitenController.globalPane);
+        Database.CloseScreen(pane);
     }
 
     @FXML
     void Zurück(ActionEvent event) throws IOException {
-        Database.ChangeScreen("FachinformationenBearbeiten.fxml", pane);
+        Database.CloseScreen(pane);
+    }
+
+    @FXML
+    void pressed(MouseEvent event) {
+        x = event.getSceneX();
+        y = event.getSceneY();
+    }
+
+    @FXML
+    void dragged(MouseEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setX(event.getScreenX() - x);
+        stage.setY(event.getScreenY() -y);
+
     }
 }

@@ -3,24 +3,18 @@ package lsstudios.gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import lsstudios.calculator.Calculator;
 import lsstudios.database.Database;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class NotenÜbersichtController implements Initializable {
@@ -49,35 +43,55 @@ public class NotenÜbersichtController implements Initializable {
     @FXML
     private TableColumn<FachWerte, ArrayList<Integer>> kleineNoteColumn;
     @FXML
-    private TableColumn<FachWerte, Integer> klausurNoteColumn;
+    private TableColumn<FachWerte, ArrayList<Integer>> klausurNoteColumn;
     @FXML
     private TableColumn<FachWerte, Integer> schnittNoteColumn;
 
     @FXML
+    private Label GesamtSchnitt;
+
+    @FXML
     private Pane pane;
+
+    public static Pane globalPane;
 
     //Methoden
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        globalPane = pane;
+
         fachColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, String>("fach"));
         themaColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, String>("thema"));
         kleineNoteColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, ArrayList<Integer>>("kleineNoten"));
-        klausurNoteColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, Integer>("klausurNoten"));
+        klausurNoteColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, ArrayList<Integer>>("klausurNoten"));
         schnittNoteColumn.setCellValueFactory(new PropertyValueFactory<FachWerte, Integer>("schnitt"));
-
-        HalloText.setText(Database.GetDataOfBenutzer().vorname);
 
         table.setItems(GetFachWerte());
 
+        HalloText.setText(Database.GetDataOfBenutzer().vorname);
 
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        //Set ColorTheme
+        Database.ChangeColorTheme(Database.GetDataOfBenutzer().colorTheme, pane);
+
+        GesamtSchnitt.setText("" + Calculator.total(Database.GetAllNoten(Database.benutzerId), Database.GetDataOfBenutzer().notensystem));
     }
 
     public ObservableList<FachWerte> GetFachWerte() {
         ObservableList<FachWerte> fachWerte = FXCollections.observableArrayList();
-        for (Integer i : Database.GetDataOfFachBelegung(Database.benutzerId)) {
-            fachWerte.add(new FachWerte(Database.GetFachName(i), Database.GetThemaOfFach(Database.benutzerId, i), Database.GetNoten(Database.benutzerId, i, "KleineNote"), Database.GetNoten(Database.benutzerId, i, "KlausurNote"), 0));
+        if (Database.GetDataOfFachBelegung(Database.benutzerId).size() > 0) {
+
+            for (Integer i : Database.GetDataOfFachBelegung(Database.benutzerId)) {
+                ArrayList<Integer> kleineNoten = Database.GetNoten(Database.benutzerId, i, "KleineNote");
+                ArrayList<Integer> klausurNoten = Database.GetNoten(Database.benutzerId, i, "KlausurNote");
+                fachWerte.add(new FachWerte(Database.GetFachName(i), Database.GetThemaOfFach(Database.benutzerId, i), kleineNoten, klausurNoten, Calculator.average(kleineNoten, klausurNoten, Database.GetDataOfBenutzer().notensystem)));
+
+            }
+            return fachWerte;
+        } else {
+            return fachWerte;
         }
-        return fachWerte;
     }
 
     public void FachinfosBearbeiten() throws IOException {
@@ -85,19 +99,21 @@ public class NotenÜbersichtController implements Initializable {
         try {
             Database.fachIdToEdit = Database.GetFachId(table.getSelectionModel().getSelectedItem().fach);
 
-            Database.ChangeScreen("FachinformationenBearbeiten.fxml", pane);
+            Database.PopUpScreen(".Screens/FachinformationenBearbeiten.fxml", table.getSelectionModel().getSelectedItem().fach + " Bearbeiten", pane);
         } catch (Exception e) {
-            PopUps.ErrorPopUp("Error", "Kein Fach Ausgewählt", "Bitte Wähle ein Fach aus um es bearbeiten zu können!");
+            PopUps.ErrorPopUp("Fehler", "Kein Fach Ausgewählt", "Bitte Wähle ein Fach aus um es bearbeiten zu können!");
+            System.out.println(e);
         }
     }
     public void Abmelden() throws IOException {
-        Database.ChangeScreen("AnmeldeScreen.fxml", pane);
+        Database.benutzerId = -1;
+        Database.ChangeScreen(".Screens/AnmeldeScreen.fxml", pane);
     }
     public void Hilfe(){
 
     }
-    public void Einstellungen(){
-
+    public void Einstellungen() throws IOException {
+        Database.ChangeScreen(".Screens/EinstellungenScreen.fxml", pane);
     }
 
 }
