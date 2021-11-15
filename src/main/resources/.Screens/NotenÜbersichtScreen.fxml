@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" styleClass="DunkelBG" stylesheets="@../.Styles/ColorThemeDunkel.css" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lsstudios.gui.NotenÜbersichtController">
+    <children>
+        <Label contentDisplay="CENTER" layoutX="65.0" prefHeight="94.0" prefWidth="302.0" text="Willkommen zurück," textAlignment="CENTER">
+            <font>
+                <Font size="33.0" />
+            </font>
+        </Label>
+      <TableView fx:id="table" cacheShape="false" centerShape="false" focusTraversable="false" layoutX="3.0" layoutY="92.0" prefHeight="400.0" prefWidth="954.0" scaleShape="false">
+         <columns>
+            <TableColumn fx:id="fachColumn" prefWidth="150.0" text="Fächer" />
+            <TableColumn fx:id="themaColumn" prefWidth="361.0" text="Thema" />
+            <TableColumn fx:id="kleineNoteColumn" minWidth="0.0" prefWidth="150.0" text="Kleine Noten" />
+            <TableColumn fx:id="klausurNoteColumn" prefWidth="150.0" text="Klausur Noten" />
+            <TableColumn fx:id="schnittNoteColumn" prefWidth="150.0" text="Noten Schnitt" />
+         </columns>
+      </TableView>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="604.0" layoutY="487.0" prefHeight="54.0" prefWidth="257.0" text="gesamter Schnitt:" textAlignment="CENTER">
+            <font>
+                <Font size="28.0" />
+            </font>
+        </Label>
+        <Button fx:id="HilfeButton" layoutX="14.0" layoutY="499.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="51.0" text="Hilfe" />
+        <Label fx:id="HalloText" contentDisplay="CENTER" layoutX="367.0" prefHeight="94.0" prefWidth="212.0" styleClass="DunkelText" text="XYZ-XYZ-XYZ" textAlignment="CENTER">
+            <font>
+                <Font size="33.0" />
+            </font>
+        </Label>
+        <Button fx:id="EinstellungenButton" layoutX="77.0" layoutY="499.0" mnemonicParsing="false" onAction="#Einstellungen" prefHeight="30.0" prefWidth="103.0" text="Einstellungen" />
+        <GridPane gridLinesVisible="true" layoutX="861.0" layoutY="496.0" prefHeight="36.0" prefWidth="68.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label fx:id="GesamtSchnitt" alignment="CENTER" prefHeight="67.0" prefWidth="113.0" text="10" textAlignment="CENTER">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Label>
+            </children>
+        </GridPane>
+        <Button fx:id="AbmeldenButton" layoutX="604.0" layoutY="32.0" mnemonicParsing="false" onAction="#Abmelden" prefHeight="30.0" prefWidth="103.0" text="Abmelden" />
+        <Button fx:id="FachinfosBearbeitenBtn" layoutX="725.0" layoutY="25.0" mnemonicParsing="false" onAction="#FachinfosBearbeiten" prefHeight="44.0" prefWidth="197.0" text="Fachinformationen Bearbeiten" />
+    </children>
+</Pane>

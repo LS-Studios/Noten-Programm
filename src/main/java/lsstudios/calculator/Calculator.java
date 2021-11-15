@@ -6,12 +6,18 @@ public class Calculator {
 
 
     //function to calculate the result for one Subject
-    public int average(ArrayList<Integer> smallGrades, int bigGrade, boolean level){
+    public static int average(ArrayList<Integer> smallGrades, ArrayList<Integer> bigGrade, String notenSystem){
         //determines based on the Gradingsystem which function will be used
-        if(level){
-            return average_high(smallGrades,bigGrade);
+        if(notenSystem == "Oberstufe"){
+            if (bigGrade.size() > 0)
+                return average_high(smallGrades,bigGrade.get(0));
+            else
+                return average_high(smallGrades,0);
         } else {
-            return average_low(smallGrades, bigGrade);
+            if (bigGrade.size() > 0)
+                return average_low(smallGrades,bigGrade.get(0));
+            else
+                return average_low(smallGrades,0);
         }
     }
 
@@ -19,16 +25,16 @@ public class Calculator {
     function to calculate the total grade for one Semester
     the Grades from the LK must be entered twice in the ArrayList!
      */
-    public int total(ArrayList<Integer> averages, boolean level){
+    public static int total(ArrayList<Integer> averages, String notenSystem){
         //determines based on the Gradingsystem wich function will be used
-        if(level){
+        if(notenSystem == "Oberstufe"){
             return total_high(averages);
         }else {
             return total_low(averages);
         }
     }
 
-    private int average_low(ArrayList<Integer> smallGrades, int bigGrade){
+    private static int average_low(ArrayList<Integer> smallGrades, int bigGrade){
         //calculates the result for one Subject in a Semester for the Gradingsystem 1-6
         int divider = 0;
         int temp = 0;
@@ -44,7 +50,7 @@ public class Calculator {
         return temp;
     }
 
-    private int average_high(ArrayList<Integer> smallGrades, int bigGrade){
+    private static int average_high(ArrayList<Integer> smallGrades, int bigGrade){
         //calculates the result for one Subject in a Semester for the Gradingsystem 0-15
         int temp = 0;
         int divider = 0;
@@ -60,7 +66,7 @@ public class Calculator {
         return temp;
     }
 
-    private int total_low(ArrayList<Integer> averages){
+    private static int total_low(ArrayList<Integer> averages){
         //calculates the total Grade for the Semester in the Gradingsystem 1-6
         int temp = 0;
         int divider = 0;
@@ -74,7 +80,7 @@ public class Calculator {
         return temp;
     }
 
-    private int total_high(ArrayList<Integer> averages){
+    private static int total_high(ArrayList<Integer> averages){
         //calculates the total Grade for the Semester in the Gradingsystem 0-15
         int temp = 0;
         int divider = 0;
